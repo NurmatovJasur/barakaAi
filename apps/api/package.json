@@ -1,0 +1,46 @@
+{
+  "name": "@smp/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "dotenv -e ../../.env -- tsx watch src/server.ts",
+    "start": "dotenv -e ../../.env -- tsx src/server.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "db:migrate": "dotenv -e ../../.env -- prisma migrate dev",
+    "db:deploy": "dotenv -e ../../.env -- prisma migrate deploy",
+    "db:seed": "dotenv -e ../../.env -- tsx prisma/seed.ts",
+    "db:reset": "dotenv -e ../../.env -- prisma migrate reset --force",
+    "db:generate": "prisma generate",
+    "test": "dotenv -e ../../.env -- vitest run",
+    "test:unit": "dotenv -v SKIP_DB=1 -- vitest run src/algorithms",
+    "db:start": "dotenv -e ../../.env -- tsx scripts/local-postgres.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "@smp/shared": "0.1.0",
+    "cors": "^2.8.5",
+    "decimal.js": "^10.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.25.56"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.30",
+    "@types/supertest": "^6.0.3",
+    "dotenv-cli": "^8.0.0",
+    "prisma": "^6.9.0",
+    "supertest": "^7.1.1",
+    "tsx": "^4.20.3",
+    "vitest": "^3.2.3",
+    "embedded-postgres": "17.6.0-beta.15"
+  }
+}

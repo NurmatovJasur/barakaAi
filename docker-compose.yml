@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: smp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: smp
+      POSTGRES_PASSWORD: smp_local_password
+      POSTGRES_DB: smart_market_prices
+    ports:
+      - "5433:5432"
+    volumes:
+      - smp_pgdata:/var/lib/postgresql/data
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smp -d smart_market_prices"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  smp_pgdata:
